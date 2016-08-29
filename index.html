@@ -5,7 +5,6 @@
     <script src="datamaps.world.min.js"></script>
     <style>
       #nav-buttons {
-        margin: 0 auto;
         text-align: center;
       }
       #nav-buttons *{
@@ -25,17 +24,36 @@
     </div>
     <div id="container" style="position: relative; width: 1500px; height: 900px; margin: 0 auto;"></div>
     <script>
-      var map = new Datamap({element: document.getElementById('container')});
+      var map;
+
+      function mockData(){
+
+      }
+
+      function getFills(){
+        return {
+          defaultFill: "#447f5f",
+          low: "#5e9e7b",
+          medium: "#9dc4ae",
+          high: "#d0e5da"
+        }
+      }
+
+      zoomWorld();
 
       function zoomWorld(){
         document.getElementById('container').innerHTML = "";
-        map = new Datamap({element: document.getElementById('container')});
+        map = new Datamap({
+          element: document.getElementById('container'),
+          fills: getFills()
+        });
       }
 
       function zoomEurope(){
         document.getElementById('container').innerHTML = "";
         map = new Datamap({
           element: document.getElementById('container'),
+          fills: getFills(),
           setProjection: function(element) {
             var projection = d3.geo.equirectangular()
               .center([15, 50])
