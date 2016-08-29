@@ -1,0 +1,144 @@
+<html>
+  <head>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="datamaps.world.min.js"></script>
+    <style>
+      #nav-buttons {
+        margin: 0 auto;
+        text-align: center;
+      }
+      #nav-buttons *{
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav-buttons">
+      <input type="button" value="World" onclick="zoomWorld()"/>
+      <input type="button" value="Europe" onclick="zoomEurope()"/>
+      <input type="button" value="Africa" onclick="zoomAfrica()"/>
+      <input type="button" value="Azia" onclick="zoomAzia()"/>
+      <input type="button" value="Australia" onclick="zoomAustralia()"/>
+      <input type="button" value="North America" onclick="zoomNorthAmerica()"/>
+      <input type="button" value="South America" onclick="zoomSouthAmerica()"/>
+    </div>
+    <div id="container" style="position: relative; width: 1500px; height: 900px; margin: 0 auto;"></div>
+    <script>
+      var map = new Datamap({element: document.getElementById('container')});
+
+      function zoomWorld(){
+        document.getElementById('container').innerHTML = "";
+        map = new Datamap({element: document.getElementById('container')});
+      }
+
+      function zoomEurope(){
+        document.getElementById('container').innerHTML = "";
+        map = new Datamap({
+          element: document.getElementById('container'),
+          setProjection: function(element) {
+            var projection = d3.geo.equirectangular()
+              .center([15, 50])
+              .rotate([4.4, 0])
+              .scale(1200)
+              .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            var path = d3.geo.path()
+              .projection(projection);
+
+            return {path: path, projection: projection};
+          }
+        });
+      }
+
+      function zoomAfrica(){
+        document.getElementById('container').innerHTML = "";
+        map = new Datamap({
+          element: document.getElementById('container'),
+          setProjection: function(element) {
+            var projection = d3.geo.equirectangular()
+              .center([23, -3])
+              .rotate([4.4, 0])
+              .scale(600)
+              .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            var path = d3.geo.path()
+              .projection(projection);
+
+            return {path: path, projection: projection};
+          }
+        });
+      }
+
+      function zoomAzia(){
+        document.getElementById('container').innerHTML = "";
+        map = new Datamap({
+          element: document.getElementById('container'),
+          setProjection: function(element) {
+            var projection = d3.geo.equirectangular()
+              .center([115, 35])
+              .rotate([4.4, 0])
+              .scale(500)
+              .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            var path = d3.geo.path()
+              .projection(projection);
+
+            return {path: path, projection: projection};
+          }
+        });
+      }
+
+      function zoomAustralia(){
+        document.getElementById('container').innerHTML = "";
+        map = new Datamap({
+          element: document.getElementById('container'),
+          setProjection: function(element) {
+            var projection = d3.geo.equirectangular()
+              .center([140, -25])
+              .rotate([4.4, 0])
+              .scale(1000)
+              .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            var path = d3.geo.path()
+              .projection(projection);
+
+            return {path: path, projection: projection};
+          }
+        });
+      }
+
+      function zoomNorthAmerica(){
+        document.getElementById('container').innerHTML = "";
+        map = new Datamap({
+          element: document.getElementById('container'),
+          setProjection: function(element) {
+            var projection = d3.geo.equirectangular()
+              .center([-85, 45])
+              .rotate([4.4, 0])
+              .scale(540)
+              .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            var path = d3.geo.path()
+              .projection(projection);
+
+            return {path: path, projection: projection};
+          }
+        });
+      }
+
+      function zoomSouthAmerica(){
+        document.getElementById('container').innerHTML = "";
+        map = new Datamap({
+          element: document.getElementById('container'),
+          setProjection: function(element) {
+            var projection = d3.geo.equirectangular()
+              .center([-55, -25])
+              .rotate([4.4, 0])
+              .scale(600)
+              .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            var path = d3.geo.path()
+              .projection(projection);
+
+            return {path: path, projection: projection};
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
