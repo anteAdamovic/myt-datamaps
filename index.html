@@ -36,8 +36,21 @@
       for (var i = 0, j = countries.length; i < j; i++) {
         console.log(countries[i].id + ": " + "'" + getRandomFill() + "'");
       }
-      var map;
-      var mockData = {
+      var map, totalValue;
+      function getDataByCode(code){
+        switch(code){
+          case "AFG":
+            // Get the amount of developers from passed parameter
+            var d = getDataByName("afganistan");
+            return {
+              // Calculate the fill key depending on the amount of developers
+              fillKey: calculateFillKey(d.value, totalValue),
+              value: d.value
+            };
+        }
+      }
+
+      var data = {
         AFG: { fillKey: 'high' },
         AGO: { fillKey: 'low' },
         ALB: { fillKey: 'defaultFill' },
