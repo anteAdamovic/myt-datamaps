@@ -7,7 +7,7 @@
       #nav-buttons {
         text-align: center;
       }
-      #nav-buttons *{
+      #nav-buttons * {
         display: inline-block;
       }
     </style>
@@ -24,18 +24,207 @@
     </div>
     <div id="container" style="position: relative; width: 1500px; height: 900px; margin: 0 auto;"></div>
     <script>
+
+      function getRandomFill(){
+        if(Math.floor((Math.random() * 3) + 1) == 1) return "low";
+        if(Math.floor((Math.random() * 3) + 1) == 2) return "medium";
+        if(Math.floor((Math.random() * 3) + 1) == 3) return "high";
+        return "defaultFill";
+      }
+
+      var countries = Datamap.prototype.worldTopo.objects.world.geometries;
+      for (var i = 0, j = countries.length; i < j; i++) {
+        console.log(countries[i].id + ": " + "'" + getRandomFill() + "'");
+      }
       var map;
+      var mockData = {
+        AFG: { fillKey: 'high' },
+        AGO: { fillKey: 'low' },
+        ALB: { fillKey: 'defaultFill' },
+        ARE: { fillKey: 'defaultFill' },
+        ARG: { fillKey: 'defaultFill' },
+        ARM: { fillKey: 'medium' },
+        ATA: { fillKey: 'low' },
+        ATF: { fillKey: 'high' },
+        AUS: { fillKey: 'low' },
+        AUT: { fillKey: 'high' },
+        AZE: { fillKey: 'high' },
+        BDI: { fillKey: 'low' },
+        BEL: { fillKey: 'high' },
+        BEN: { fillKey: 'low' },
+        BFA: { fillKey: 'low' },
+        BGD: { fillKey: 'medium' },
+        BGR: { fillKey: 'defaultFill' },
+        BHS: { fillKey: 'low' },
+        BIH: { fillKey: 'low' },
+        BLR: { fillKey: 'medium' },
+        BLZ: { fillKey: 'low' },
+        BOL: { fillKey: 'low' },
+        BRA: { fillKey: 'defaultFill' },
+        BRN: { fillKey: 'low' },
+        BTN: { fillKey: 'defaultFill' },
+        BWA: { fillKey: 'medium' },
+        CAF: { fillKey: 'defaultFill' },
+        CAN: { fillKey: 'medium' },
+        CHE: { fillKey: 'low' },
+        CHL: { fillKey: 'low' },
+        CHN: { fillKey: 'defaultFill' },
+        CIV: { fillKey: 'defaultFill' },
+        CMR: { fillKey: 'low' },
+        COD: { fillKey: 'defaultFill' },
+        COG: { fillKey: 'high' },
+        COL: { fillKey: 'defaultFill' },
+        CRI: { fillKey: 'defaultFill' },
+        CUB: { fillKey: 'low' },
+        CYP: { fillKey: 'low' },
+        CZE: { fillKey: 'defaultFill' },
+        DEU: { fillKey: 'defaultFill' },
+        DJI: { fillKey: 'defaultFill' },
+        DNK: { fillKey: 'medium' },
+        DOM: { fillKey: 'low' },
+        DZA: { fillKey: 'low' },
+        ECU: { fillKey: 'defaultFill' },
+        EGY: { fillKey: 'low' },
+        ERI: { fillKey: 'low' },
+        ESP: { fillKey: 'defaultFill' },
+        EST: { fillKey: 'medium' },
+        ETH: { fillKey: 'medium' },
+        FIN: { fillKey: 'high' },
+        FJI: { fillKey: 'defaultFill' },
+        FLK: { fillKey: 'medium' },
+        FRA: { fillKey: 'defaultFill' },
+        GUF: { fillKey: 'low' },
+        GAB: { fillKey: 'high' },
+        GBR: { fillKey: 'medium' },
+        GEO: { fillKey: 'low' },
+        GHA: { fillKey: 'low' },
+        GIN: { fillKey: 'defaultFill' },
+        GMB: { fillKey: 'medium' },
+        GNB: { fillKey: 'medium' },
+        GNQ: { fillKey: 'low' },
+        GRC: { fillKey: 'low' },
+        GRL: { fillKey: 'defaultFill' },
+        GTM: { fillKey: 'low' },
+        GUY: { fillKey: 'medium' },
+        HND: { fillKey: 'low' },
+        HRV: { fillKey: 'defaultFill' },
+        HTI: { fillKey: 'defaultFill' },
+        HUN: { fillKey: 'defaultFill' },
+        IDN: { fillKey: 'medium' },
+        IND: { fillKey: 'low' },
+        IRL: { fillKey: 'low' },
+        IRN: { fillKey: 'low' },
+        IRQ: { fillKey: 'low' },
+        ISL: { fillKey: 'medium' },
+        ISR: { fillKey: 'low' },
+        ITA: { fillKey: 'defaultFill' },
+        JAM: { fillKey: 'defaultFill' },
+        JOR: { fillKey: 'defaultFill' },
+        JPN: { fillKey: 'high' },
+        KAZ: { fillKey: 'defaultFill' },
+        KEN: { fillKey: 'low' },
+        KGZ: { fillKey: 'defaultFill' },
+        KHM: { fillKey: 'low' },
+        KOR: { fillKey: 'low' },
+        KWT: { fillKey: 'medium' },
+        LAO: { fillKey: 'low' },
+        LBN: { fillKey: 'defaultFill' },
+        LBR: { fillKey: 'low' },
+        LBY: { fillKey: 'low' },
+        LKA: { fillKey: 'high' },
+        LSO: { fillKey: 'defaultFill' },
+        LTU: { fillKey: 'medium' },
+        LUX: { fillKey: 'low' },
+        LVA: { fillKey: 'low' },
+        MAR: { fillKey: 'defaultFill' },
+        MDA: { fillKey: 'low' },
+        MDG: { fillKey: 'defaultFill' },
+        MEX: { fillKey: 'defaultFill' },
+        MKD: { fillKey: 'medium' },
+        MLI: { fillKey: 'defaultFill' },
+        MMR: { fillKey: 'medium' },
+        MNE: { fillKey: 'medium' },
+        MNG: { fillKey: 'high' },
+        MOZ: { fillKey: 'low' },
+        MRT: { fillKey: 'defaultFill' },
+        MWI: { fillKey: 'low' },
+        MYS: { fillKey: 'low' },
+        NAM: { fillKey: 'defaultFill' },
+        NCL: { fillKey: 'low' },
+        NER: { fillKey: 'defaultFill' },
+        NGA: { fillKey: 'high' },
+        NIC: { fillKey: 'low' },
+        NLD: { fillKey: 'low' },
+        NOR: { fillKey: 'low' },
+        NPL: { fillKey: 'low' },
+        NZL: { fillKey: 'medium' },
+        OMN: { fillKey: 'medium' },
+        PAK: { fillKey: 'medium' },
+        PAN: { fillKey: 'defaultFill' },
+        PER: { fillKey: 'low' },
+        PHL: { fillKey: 'low' },
+        PNG: { fillKey: 'high' },
+        POL: { fillKey: 'high' },
+        PRI: { fillKey: 'medium' },
+        PRK: { fillKey: 'medium' },
+        PRT: { fillKey: 'low' },
+        PRY: { fillKey: 'medium' },
+        QAT: { fillKey: 'defaultFill' },
+        ROU: { fillKey: 'low' },
+        RUS: { fillKey: 'high' },
+        RWA: { fillKey: 'medium' },
+        ESH: { fillKey: 'low' },
+        SAU: { fillKey: 'defaultFill' },
+        SDN: { fillKey: 'defaultFill' },
+        SSD: { fillKey: 'defaultFill' },
+        SEN: { fillKey: 'defaultFill' },
+        SLB: { fillKey: 'defaultFill' },
+        SLE: { fillKey: 'low' },
+        SLV: { fillKey: 'defaultFill' },
+        SOM: { fillKey: 'medium' },
+        SRB: { fillKey: 'defaultFill' },
+        SUR: { fillKey: 'defaultFill' },
+        SVK: { fillKey: 'medium' },
+        SVN: { fillKey: 'defaultFill' },
+        SWE: { fillKey: 'low' },
+        SWZ: { fillKey: 'defaultFill' },
+        SYR: { fillKey: 'low' },
+        TCD: { fillKey: 'defaultFill' },
+        TGO: { fillKey: 'defaultFill' },
+        THA: { fillKey: 'low' },
+        TJK: { fillKey: 'high' },
+        TKM: { fillKey: 'defaultFill' },
+        TLS: { fillKey: 'medium' },
+        TTO: { fillKey: 'low' },
+        TUN: { fillKey: 'defaultFill' },
+        TUR: { fillKey: 'low' },
+        TWN: { fillKey: 'low' },
+        TZA: { fillKey: 'defaultFill' },
+        UGA: { fillKey: 'high' },
+        UKR: { fillKey: 'low' },
+        URY: { fillKey: 'low' },
+        USA: { fillKey: 'medium' },
+        UZB: { fillKey: 'low' },
+        VEN: { fillKey: 'medium' },
+        VNM: { fillKey: 'medium' },
+        VUT: { fillKey: 'low' },
+        PSE: { fillKey: 'high' },
+        YEM: { fillKey: 'low' },
+        ZAF: { fillKey: 'defaultFill' },
+        ZMB: { fillKey: 'low' },
+        ZWE: { fillKey: 'low' }
+      }
 
-      function mockData(){
-
+      function getData(){
+        return mockData;
       }
 
       function getFills(){
         return {
-          defaultFill: "#447f5f",
-          low: "#5e9e7b",
-          medium: "#9dc4ae",
-          high: "#d0e5da"
+          defaultFill: "#c1f0c1",
+          low: "#84e184",
+          medium: "#46d246",
+          high: "#1e7b1e"
         }
       }
 
@@ -45,7 +234,8 @@
         document.getElementById('container').innerHTML = "";
         map = new Datamap({
           element: document.getElementById('container'),
-          fills: getFills()
+          fills: getFills(),
+          data: getData()
         });
       }
 
@@ -54,6 +244,7 @@
         map = new Datamap({
           element: document.getElementById('container'),
           fills: getFills(),
+          data: getData(),
           setProjection: function(element) {
             var projection = d3.geo.equirectangular()
               .center([15, 50])
@@ -72,6 +263,8 @@
         document.getElementById('container').innerHTML = "";
         map = new Datamap({
           element: document.getElementById('container'),
+          fills: getFills(),
+          data: getData(),
           setProjection: function(element) {
             var projection = d3.geo.equirectangular()
               .center([23, -3])
@@ -90,6 +283,8 @@
         document.getElementById('container').innerHTML = "";
         map = new Datamap({
           element: document.getElementById('container'),
+          fills: getFills(),
+          data: getData(),
           setProjection: function(element) {
             var projection = d3.geo.equirectangular()
               .center([115, 35])
@@ -108,6 +303,8 @@
         document.getElementById('container').innerHTML = "";
         map = new Datamap({
           element: document.getElementById('container'),
+          fills: getFills(),
+          data: getData(),
           setProjection: function(element) {
             var projection = d3.geo.equirectangular()
               .center([140, -25])
@@ -126,6 +323,8 @@
         document.getElementById('container').innerHTML = "";
         map = new Datamap({
           element: document.getElementById('container'),
+          fills: getFills(),
+          data: getData(),
           setProjection: function(element) {
             var projection = d3.geo.equirectangular()
               .center([-85, 45])
@@ -144,6 +343,8 @@
         document.getElementById('container').innerHTML = "";
         map = new Datamap({
           element: document.getElementById('container'),
+          fills: getFills(),
+          data: getData(),
           setProjection: function(element) {
             var projection = d3.geo.equirectangular()
               .center([-55, -25])
